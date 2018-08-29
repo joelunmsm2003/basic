@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+import raven
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -40,8 +41,18 @@ INSTALLED_APPS = [
     'app',
     'rest_framework',
     'ws4redis',
+    'raven.contrib.django.raven_compat',
 ]
 
+
+
+RAVEN_CONFIG = {
+    'dsn': 'https://76d4e8e988c44d19a4e5324c34f83b2b:23d9fe92a9a2427997ab18ddbe1271b3@sentry.io/1271372',
+
+    # If you are using git, you can also automatically configure the
+    # release based on the git info.
+    'release': raven.fetch_git_sha(BASE_DIR),
+}
 
 
 # WSGI_APPLICATION = 'minicall.wsgi.application'
