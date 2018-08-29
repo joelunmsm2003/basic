@@ -8,7 +8,6 @@
 
 <script type="text/javascript" src="/static/ws4.js"></script>
 
-
 <script type="text/javascript">
 
      var ws4redis = WS4Redis({
@@ -63,7 +62,7 @@
     border-radius: 13px;height: 100%;'>
     
 
-      <h4>{{agente.user.first_name}} {{agente.user.last_name}} </h4>
+    <h4>{{agente.user.first_name}} {{agente.user.last_name}} </h4>
 
      <p>{{agente.estado.nombre}}</p>
 
@@ -72,13 +71,13 @@
       <nav class="nav nav-pills flex-column flex-sm-row">
 
         {% if agente.estado.nombre == 'Pausa' %}
-        <a class="flex-sm-fill text-sm-center nav-link active " style='color:#fff;' href="/agente/{{base.id}}?estado=1">Pausa</a>
-        <a class="flex-sm-fill text-sm-center nav-link " style='color:#fff;' href="/agente/{{base.id}}?estado=2">Disponible</a>
+        <a class="flex-sm-fill text-sm-center nav-link active " style='color:#fff;' href="/agente/0?estado=1">Pausa</a>
+        <a class="flex-sm-fill text-sm-center nav-link " style='color:#fff;' href="/agente/0?estado=2">Disponible</a>
         {% endif %}
 
          {% if agente.estado.nombre == 'Disponible' %}
-        <a class="flex-sm-fill text-sm-center nav-link   " style='color:#fff;' href="/agente/{{base.id}}?estado=1">Pausa</a>
-        <a class="flex-sm-fill text-sm-center nav-link active " style='color:#fff;' href="/agente/{{base.id}}?estado=2">Disponible</a>
+        <a class="flex-sm-fill text-sm-center nav-link   " style='color:#fff;' href="/agente/0?estado=1">Pausa</a>
+        <a class="flex-sm-fill text-sm-center nav-link active " style='color:#fff;' href="/agente/0?estado=2">Disponible</a>
         {% endif %}
 
         
@@ -92,7 +91,7 @@
       {% endif %}
 
     
-
+     </form>
     </div>
 
 

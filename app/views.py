@@ -32,7 +32,27 @@ def ingresar(request):
 
 				login(request, user)
 
-				return HttpResponseRedirect("/agente")
+				try:
+
+					_grupo = Group.objects.filter(user = request.user)[0]
+
+					_agente = Agente.objects.get(user=request.user)
+					_agente.estado_id=1
+					_agente.save()
+
+				except:
+
+					return render(request, 'ingresar.html',{'error':'Asignar un grupo a tu usuario'})
+
+				print 'grupo...',_grupo
+
+				if str(_grupo) =='Admin':
+
+					return HttpResponseRedirect("/admin")
+
+				if str(_grupo)=='Agente':
+
+					return HttpResponseRedirect("/agente/1")
 
 	if request.method == 'GET':
 
