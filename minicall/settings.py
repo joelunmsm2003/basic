@@ -40,19 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app',
     'rest_framework',
-    'ws4redis',
-    'raven.contrib.django.raven_compat',
+    'ws4redis'
 ]
 
 
 
-RAVEN_CONFIG = {
-    'dsn': 'https://76d4e8e988c44d19a4e5324c34f83b2b:23d9fe92a9a2427997ab18ddbe1271b3@sentry.io/1271372',
-
-    # If you are using git, you can also automatically configure the
-    # release based on the git info.
-    'release': raven.fetch_git_sha(BASE_DIR),
-}
 
 
 # WSGI_APPLICATION = 'minicall.wsgi.application'
@@ -116,6 +108,17 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'progresivoc7',
+        'USER': 'andy',
+        'PASSWORD': 'rosa0000',
+        'HOST': '127.0.0.1',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
     }
 }
 
