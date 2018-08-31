@@ -32,7 +32,33 @@ def ingresar(request):
 
 				login(request, user)
 
-				return HttpResponseRedirect("/agente")
+				try:
+
+					_grupo = Group.objects.filter(user = request.user)[0]
+
+					if str(_grupo) =='Admin':
+
+						return HttpResponseRedirect("/admin")
+
+
+					if str(_grupo)=='Agente':
+
+						_agente = Agente.objects.get(user=request.user)
+						_agente.estado_id=1
+						_agente.save()
+
+						return HttpResponseRedirect("/agente/1")
+
+
+
+				except:
+
+					return render(request, 'ingresar.html',{'error':'Consultar al admin'})
+
+				print 'grupo...',_grupo
+
+
+
 
 	if request.method == 'GET':
 
