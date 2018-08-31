@@ -82,8 +82,7 @@ def lanzagestion(request,base,agente):
 
 	redis_publisher = RedisPublisher(facility='foobar', users=[_agente.user.username])
 
-	message = RedisMessage('llamada')
-
+	message = RedisMessage('llamada-'+str(base))
 
 
 	redis_publisher.publish_message(message)
