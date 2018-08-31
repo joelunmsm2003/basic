@@ -32,9 +32,13 @@ def ingresar(request):
 
 				login(request, user)
 
+				print 'llege aquis'
+
 				try:
 
 					_grupo = Group.objects.filter(user = request.user)[0]
+
+					print _grupo
 
 					if str(_grupo) =='Admin':
 
@@ -47,11 +51,13 @@ def ingresar(request):
 						_agente.estado_id=1
 						_agente.save()
 
-						return HttpResponseRedirect("/agente/1")
+						return HttpResponseRedirect("/agente/5268")
 
 
 
 				except:
+
+					
 
 					return render(request, 'ingresar.html',{'error':'Consultar al admin'})
 
@@ -97,6 +103,12 @@ def m_agente(request,id_base):
 
 	_agente=Agente.objects.get(user_id=request.user.id)
 
+	redis_publisher = RedisPublisher(facility='foobar', users=[_agente.user.username])
+
+	message = RedisMessage('fin')
+
+	redis_publisher.publish_message(message)
+
 	for r in request.GET:
 
 		if r=='estado':
@@ -125,11 +137,7 @@ def m_agente(request,id_base):
 
 		form = BaseForm(instance=_base)
 
-		redis_publisher = RedisPublisher(facility='foobar', users=[_agente.user.username])
 
-		message = RedisMessage('fin')
-
-		redis_publisher.publish_message(message)
 
 	except:
 
