@@ -75,10 +75,16 @@ def api_agentes(request):
 
 def lanzagestion(request,base,agente):
 
+	_agente = Agente.objects.get(id=agente)
+	_agente.estado_id=3
+	_agente.save()
 
-	redis_publisher = RedisPublisher(facility='foobar', users=['root'])
+
+	redis_publisher = RedisPublisher(facility='foobar', users=[_agente.user.username])
 
 	message = RedisMessage('llamada')
+
+
 
 	redis_publisher.publish_message(message)
 
@@ -119,6 +125,12 @@ def m_agente(request,id_base):
 		_base = Base.objects.get(id=id_base)
 
 		form = BaseForm(instance=_base)
+
+		redis_publisher = RedisPublisher(facility='foobar', users=[_agente.user.username])
+
+		message = RedisMessage('fin')
+
+		redis_publisher.publish_message(message)
 
 	except:
 
