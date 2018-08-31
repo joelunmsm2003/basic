@@ -18,13 +18,13 @@
 
     function receiveMessage(msg) {
 
-        console.log(msg)
+        console.log(msg.split('-')[0])
 
-          if(msg=='llamada'){
+          if(msg.split('-')[0]=='llamada'){
 
 
 
-          window.location.href = "/agente/"
+              window.location.href = "/agente/"+msg.split('-')[1]
 
       
         }
