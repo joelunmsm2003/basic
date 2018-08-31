@@ -18,9 +18,9 @@ class BaseForm(ModelForm):
 
 
 class AgendarForm(forms.Form):
-	fecha = forms.CharField(widget=forms.TextInput(attrs={'class' : 'form-control col-md-3','type':'date'}))
-	descripcion = forms.CharField(widget=forms.Textarea(attrs={'class' : 'form-control','rows':"3"}))
-
+	fecha = forms.CharField(widget=forms.TextInput(attrs={'class' : 'form-control col-md-3','type':'date','required':'false'}))
+	descripcion = forms.CharField(widget=forms.Textarea(attrs={'class' : 'form-control','rows':"3",'required':'false'}))
+    
 
 class AgenteForm(ModelForm):
     class Meta:

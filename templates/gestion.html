@@ -32,19 +32,25 @@
 
         <h3>Agendar</h3>
 
-        <form action="/agente/{{base.id}}?estado=2" method="GET">
+        <form action="/agente/{{base.id}}" method="GET">
         {% csrf_token %}
 
 
-        {% for field in agenda %}
-        <div class="form-group ">
-        {{ field.errors }}
-        {{ field.label_tag }} {{ field }}
-        {% if field.help_text %}
-        <p class="help">{{ field.help_text|safe }}</p>
-        {% endif %}
+        <div class="form-group">
+
+          <input type="hide" class='form-control' value='2' name="estado"></input>
+          </div>
+          <label>Fecha</label>
+           <div class="form-group col-md-3">
+          <input type="date" class='form-control' name="agente"></input>
         </div>
-        {% endfor %}
+         <div class="form-group">
+           <label>Descripcion</label>
+          <textarea type="text" class='form-control' name="descripcion"></textarea>
+
+       
+        </div>
+        
 
         <input class='btn btn-primary' type="submit" value="Guardar">
         </form>

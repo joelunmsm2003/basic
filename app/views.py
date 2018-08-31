@@ -61,7 +61,7 @@ def ingresar(request):
 
 					return render(request, 'ingresar.html',{'error':'Consultar al admin'})
 
-				print 'grupo...',_grupo
+		return render(request, 'ingresar.html',{'error':'Usuario no existe'})
 
 
 
@@ -103,47 +103,63 @@ def m_agente(request,id_base):
 
 	_agente=Agente.objects.get(user_id=request.user.id)
 
-	redis_publisher = RedisPublisher(facility='foobar', users=[_agente.user.username])
 
-	message = RedisMessage('fin')
+	# if request.method=='POST':
 
-	redis_publisher.publish_message(message)
-
-	for r in request.GET:
-
-		if r=='estado':
-
-			cambia_estado = request.GET['estado']
-
-			_agente.estado_id=cambia_estado
-			_agente.save()
-
-			
+	# 	_agente.estado_id=2
+	# 	_agente.save()
 
 
-	print _agente.estado_id
-
-	_estado=Estado.objects.filter(id__in=[1,2])
-
-	agenda = AgendarForm()
-
-	agenteform = AgenteForm(instance=_agente)
+	# 	return HttpResponseRedirect("/agente/"+id_base)
 
 
 
-	try:
-
-		_base = Base.objects.get(id=id_base)
-
-		form = BaseForm(instance=_base)
+	if request.method=='GET':
 
 
+		print 'entre...',request.GET
+	
+		redis_publisher = RedisPublisher(facility='foobar', users=[_agente.user.username])
 
-	except:
+		message = RedisMessage('fin')
 
-		return render(request, 'agente.html',{'error':'No existe en Base','agente':_agente,'estados':_estado})
+		redis_publisher.publish_message(message)
 
-	return render(request, 'agente.html',{'agenteform':agenteform,'agente':_agente,'agenda':agenda,'estados':_estado,'base':_base,'form':form})
+		for r in request.GET:
+
+			if r=='estado':
+
+				cambia_estado = request.GET['estado']
+
+				_agente.estado_id=cambia_estado
+				_agente.save()
+
+				
+
+
+		print _agente.estado_id
+
+		_estado=Estado.objects.filter(id__in=[1,2])
+
+		agenda = AgendarForm()
+
+		agenteform = AgenteForm(instance=_agente)
+
+
+
+		try:
+
+			_base = Base.objects.get(id=id_base)
+
+			form = BaseForm(instance=_base)
+
+
+
+		except:
+
+			return render(request, 'agente.html',{'error':'No existe en Base','agente':_agente,'estados':_estado})
+
+		return render(request, 'agente.html',{'agenteform':agenteform,'agente':_agente,'agenda':agenda,'estados':_estado,'base':_base,'form':form})
 
 
 @login_required(login_url="/ingresar")
