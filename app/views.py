@@ -99,6 +99,27 @@ def lanzagestion(request,base,agente):
 	return JsonResponse(serializer.data, safe=False)
 
 
+def lanzafinllamada(request,base,agente):
+
+	_agente = Agente.objects.get(id=agente)
+
+	_agente.estado_id=4
+	_agente.save()
+
+
+	redis_publisher = RedisPublisher(facility='foobar', users=[_agente.user.username])
+
+	message = RedisMessage('llamada-'+str(base))
+
+
+	redis_publisher.publish_message(message)
+
+
+	_data = Agente.objects.filter(id=agente)
+	serializer =  AgentesSerializer(_data,many=True)
+	return JsonResponse(serializer.data, safe=False)
+
+
 def lanzaestado(request):
 
 	# _agente = Agente.objects.get(id=agente)
