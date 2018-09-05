@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+
+
+  {% block content %}
+
+
+  
+  <script type="text/javascript" src="/static/ws4.js"></script>
+
+  <script type="text/javascript">
+
+     var ws4redis = WS4Redis({
+      uri: '{{ WEBSOCKET_URI }}foobar?subscribe-user',
+      receive_message: receiveMessage,
+      heartbeat_msg: {{ WS4REDIS_HEARTBEAT }}
+    });
+
+    function receiveMessage(msg) {
+
+        console.log(msg)
+
+
+    }
+
+
+</script>
+
+
+
+
+
+
+  {% endblock %}

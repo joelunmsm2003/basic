@@ -28,4 +28,6 @@ urlpatterns = [
 	url(r'^monitor/', monitor),
 	url(r'^api_agentes/', api_agentes),
     url(r'^lanzagestion/(\d+)/(\d+)', lanzagestion),
+
+    url(r'^lanzaestado/', lanzaestado),
 ]

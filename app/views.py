@@ -98,7 +98,28 @@ def lanzagestion(request,base,agente):
 	serializer =  AgentesSerializer(_data,many=True)
 	return JsonResponse(serializer.data, safe=False)
 
+
+def lanzaestado(request):
+
+	# _agente = Agente.objects.get(id=agente)
+
+	_agentes = Agente.objects.all()
+
+	_agentes = AgentesSerializer(_agentes,many=True)
+
+	redis_publisher = RedisPublisher(facility='foobar', users=['root'])
+
+	message = RedisMessage(_agentes)
+
+	redis_publisher.publish_message(message)
+
+	data = simplejson.dumps('body')
+
+	return HttpResponse(data, content_type="application/json")
+
+
 @login_required(login_url="/ingresar")
+
 def m_agente(request,id_base):
 
 	_agente=Agente.objects.get(user_id=request.user.id)
